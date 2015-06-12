@@ -1,0 +1,42 @@
+{% extends '::base_admin.html.twig' %}
+
+{% block content -%} 
+    <h1>Item  <span class="badge">#{{ entity.id }}</span></h1>
+
+    <table class="record_properties table">
+        <tbody>
+            <tr>
+                <th>Barcode</th>
+                <td><div class="thumbnail">{{ barcode({code: ""~entity.id, type: 'ean13', format: 'svg'}) }}</div>  </td>
+            </tr>
+            <tr>
+                <th>{{"Name"|trans}}</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>{{"Stock"|trans}} : </th>
+                <td>{{ entity.stock }}  <span title="{{"Stock Type"|trans}}" class="badge">{{ entity.stockType }}</span></td>
+            </tr>
+
+            <tr>
+                <th>{{"Photo"|trans}}</th>
+                <td><a href="{{entity.imageWebPath}}"><img alt="photo" src="{{entity.imageWebPath}}" width="300"></a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="hidden-print btn-group">
+        <a class="btn btn-default" href="#" onclick="window.print();">
+            <i class="fa fa-print"></i> {{"Print"|trans}}
+        </a>
+        <a href="{{ path('admin_item') }}" class="btn btn-default">
+            {{"Back to the list"|trans}}
+        </a>
+        <a href="{{ path('admin_item_edit', { 'id': entity.id }) }}"  class="btn btn-default">
+            <i class="fa fa-edit"></i>  {{"Edit"|trans}}
+        </a>
+        <hr>
+        {{ form(delete_form) }}
+    </div>
+
+
+{% endblock %}
